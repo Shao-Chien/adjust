@@ -2,32 +2,28 @@
 [numc,txtc,rawc]=xlsread('div_cash.xlsx');
 [nums,txts,raws]=xlsread('div_stock.xlsx');
 num_adjust = num;
-n=1;
-%for n = 1:1590 
-jc = 2;
-js = 2;
+%n=56;
+for n = 1:1590 
+for j=2:2:8
 for i=3:990
-     if jc<=7
-     if isequal(raw(i,1),rawc(jc,n+1))>0 %
-         jc = jc+1; % 竚
+     if isequal(raw(i,1),rawc(j,n+1))>0 %
+         temp = j-1; % 竚
          for k = i:990
-             num_adjust(k-3,n) = num_adjust(k-3,n) + numc(jc,n);%
+             num_adjust(k-3,n) = num_adjust(k-3,n) + numc(temp,n);%
          end
-         jc = jc+1;
+         clear temp
      end
-     end
-     if isequal(raw(i,1),raws(js,n+1))>0 %布临
-         js = js+1;%布竚
+     if isequal(raw(i,1),raws(j,n+1))>0 %布临
+         temp = j-1;%布竚
          for k = i:990
-             num_adjust(k-3,n) = num_adjust(k-3,n)*(1+nums(js,n)/10);
+             num_adjust(k-3,n) = num_adjust(k-3,n)*(1+nums(temp,n)/10);
          end
-         js = js+1;
-         if js>=7
-             break
-         end
-     end
+         clear temp
+    end
 end
-num_adjust(:,n)-num(:,n);
-%end
+end
+end
+csvwrite('adjust.csv',num_adjust);
+
 
  
