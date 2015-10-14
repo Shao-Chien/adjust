@@ -4,7 +4,7 @@
 num_adjust = num;% 最後檢查調整
 for n = 1:1590 %每間公司股票逐一計算
 for j=2:2:8 % 讀取除權息日期位置
-for i=3:990
+for i=3:989
      if isequal(raw(i,1),rawc(j,n+1))>0 %比對發放現金股利日期
          temp = j-1; %現金股利位置
          for k = i:989
